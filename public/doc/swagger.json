@@ -1,0 +1,243 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "A REST API for the Paper Route Complaint backend",
+    "version" : "1.0.0",
+    "title" : "Paper Route Complaint",
+    "license" : {
+      "name" : "MIT-License"
+    }
+  },
+  "host" : "api.paroco.net",
+  "basePath" : "/v1",
+  "schemes" : [ "https" ],
+  "consumes" : [ "application/json" ],
+  "produces" : [ "application/json" ],
+  "paths" : {
+    "/person" : {
+      "get" : {
+        "tags" : [ "Person" ],
+        "summary" : "Get all persons",
+        "operationId" : "Get persons",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "An paginated collection of person objects",
+            "schema" : {
+              "$ref" : "#/definitions/PersonHalCollection"
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Person" ],
+        "summary" : "Create a new person",
+        "operationId" : "Create person",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "person",
+          "description" : "Person to add to the system",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Person"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No content"
+          }
+        }
+      }
+    },
+    "/person/{person}" : {
+      "get" : {
+        "tags" : [ "Person" ],
+        "summary" : "Get a single person",
+        "operationId" : "Get single person",
+        "parameters" : [ {
+          "name" : "person",
+          "in" : "path",
+          "description" : "Id of an person",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "An paginated collection of person objects",
+            "schema" : {
+              "$ref" : "#/definitions/Person"
+            }
+          }
+        }
+      }
+    },
+    "/person/{person}/address" : {
+      "get" : {
+        "tags" : [ "Person", "Address" ],
+        "summary" : "Get all the addresses for an single person",
+        "operationId" : "Get person addresses",
+        "parameters" : [ {
+          "name" : "person",
+          "in" : "path",
+          "description" : "Id of an person",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "An paginated collection of address objects",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/AddressHalCollection"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "HalLink" : {
+      "type" : "object",
+      "required" : [ "href" ],
+      "properties" : {
+        "href" : {
+          "type" : "string"
+        }
+      }
+    },
+    "HalCollection" : {
+      "type" : "object",
+      "required" : [ "count" ],
+      "properties" : {
+        "page" : {
+          "type" : "integer",
+          "description" : "The page number"
+        },
+        "count" : {
+          "type" : "integer",
+          "description" : "The total count"
+        },
+        "_links" : {
+          "$ref" : "#/definitions/HalCollection__links"
+        }
+      }
+    },
+    "PersonHalCollection" : {
+      "allOf" : [ {
+        "$ref" : "#/definitions/HalCollection"
+      }, {
+        "type" : "object",
+        "required" : [ "_embedded" ],
+        "properties" : {
+          "_embedded" : {
+            "type" : "object",
+            "properties" : {
+              "employees" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/definitions/Person"
+                }
+              }
+            }
+          }
+        }
+      } ],
+      "description" : "A HAL collection of persons"
+    },
+    "AddressHalCollection" : {
+      "allOf" : [ {
+        "$ref" : "#/definitions/HalCollection"
+      }, {
+        "type" : "object",
+        "required" : [ "_embedded" ],
+        "properties" : {
+          "_embedded" : {
+            "type" : "object",
+            "properties" : {
+              "employees" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/definitions/Address"
+                }
+              }
+            }
+          }
+        }
+      } ],
+      "description" : "A HAL collection of persons"
+    },
+    "Person" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer"
+        },
+        "firstName" : {
+          "type" : "string"
+        },
+        "lastName" : {
+          "type" : "string"
+        },
+        "relationNumber" : {
+          "type" : "string"
+        },
+        "dateOfBirth" : {
+          "type" : "string"
+        },
+        "phoneNumber" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Address" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer"
+        },
+        "address" : {
+          "type" : "string"
+        },
+        "city" : {
+          "type" : "string"
+        },
+        "postalCode" : {
+          "type" : "string"
+        },
+        "country" : {
+          "type" : "string"
+        }
+      }
+    },
+    "BankAccount" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer"
+        }
+      }
+    },
+    "HalCollection__links" : {
+      "required" : [ "first", "last", "self" ],
+      "properties" : {
+        "self" : {
+          "$ref" : "#/definitions/HalLink"
+        },
+        "prev" : {
+          "$ref" : "#/definitions/HalLink"
+        },
+        "next" : {
+          "$ref" : "#/definitions/HalLink"
+        },
+        "first" : {
+          "$ref" : "#/definitions/HalLink"
+        },
+        "last" : {
+          "$ref" : "#/definitions/HalLink"
+        }
+      }
+    }
+  }
+}

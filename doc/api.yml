@@ -1,0 +1,183 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Paper Route Complaint
+  description: A REST API for the Paper Route Complaint backend
+  license:
+    name: MIT-License
+host: api.paroco.net
+schemes:
+  - https
+basePath: /v1
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /person:
+    get:
+      summary: Get all persons
+      operationId: Get persons
+      tags:
+        - Person
+      responses:
+        200:
+          description: An paginated collection of person objects
+          schema:
+            $ref: '#/definitions/PersonHalCollection'
+    post:
+      summary: Create a new person
+      operationId: Create person
+      tags:
+        - Person
+      parameters:
+        - {
+            "name": "person",
+            "in": "body",
+            "description": "Person to add to the system",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Person"
+            }
+          }
+      responses:
+        204:
+          description: No content
+  /person/{person}:
+      get:
+        summary: Get a single person
+        operationId: Get single person
+        tags:
+          - Person
+        responses:
+          200:
+            description: An paginated collection of person objects
+            schema:
+              $ref: '#/definitions/Person'
+        parameters:
+          - name: person
+            in: path
+            description: Id of an person
+            required: true
+            type: integer
+  /person/{person}/address:
+    get:
+      summary: Get all the addresses for an single person
+      operationId: Get person addresses
+      tags:
+        - Person
+        - Address
+      responses:
+        200:
+          description: An paginated collection of address objects
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/AddressHalCollection'
+      parameters:
+        - name: person
+          in: path
+          description: Id of an person
+          required: true
+          type: integer
+definitions:
+  HalLink:
+    type: object
+    required:
+      - href
+    properties:
+      href:
+        type: string
+  HalCollection:
+    type: object
+    required:
+      - count
+      - total
+      - _links
+    properties:
+      page:
+        type: integer
+        description: The page number
+      count:
+        type: integer
+        description: The total count
+      _links:
+        type: object
+        required:
+          - self
+          - first
+          - last
+        properties:
+          self:
+            $ref: '#/definitions/HalLink'
+          prev:
+            $ref: '#/definitions/HalLink'
+          next:
+            $ref: '#/definitions/HalLink'
+          first:
+            $ref: '#/definitions/HalLink'
+          last:
+            $ref: '#/definitions/HalLink'
+  PersonHalCollection:
+    description: A HAL collection of persons
+    allOf:
+    - $ref: '#/definitions/HalCollection'
+    - type: object
+      required:
+      - _embedded
+      properties:
+        _embedded:
+          type: object
+          properties:
+            employees:
+              type: array
+              items:
+                $ref: '#/definitions/Person'
+  AddressHalCollection:
+      description: A HAL collection of persons
+      allOf:
+      - $ref: '#/definitions/HalCollection'
+      - type: object
+        required:
+        - _embedded
+        properties:
+          _embedded:
+            type: object
+            properties:
+              employees:
+                type: array
+                items:
+                  $ref: '#/definitions/Address'
+  Person:
+    type: object
+    properties:
+      id:
+        type: integer
+      firstName:
+        type: string
+      lastName:
+        type: string
+      relationNumber:
+        type: string
+      dateOfBirth:
+        type: string
+      phoneNumber:
+        type: string
+  Address:
+    type: object
+    properties:
+      id:
+        type: integer
+      address:
+        type: string
+      city:
+        type: string
+      postalCode:
+        type: string
+      country:
+        type: string
+  BankAccount:
+    type: object
+    properties:
+      id:
+        type: integer
