@@ -1,5 +1,8 @@
 <?php
 
+use VasekPurchart\Doctrine\Type\DateTimeImmutable\DateImmutableType;
+use VasekPurchart\Doctrine\Type\DateTimeImmutable\DateTimeImmutableType;
+
 return [
     'doctrine' => [
         'driver' => [
@@ -31,6 +34,8 @@ return [
                     'product' => 'Core\ValueObjects\Doctrine\ProductType',
                     'severity' => 'Core\ValueObjects\Doctrine\SeverityType',
                     'complaint-type' => 'Core\ValueObjects\Doctrine\ComplaintTypeType',
+                    DateImmutableType::NAME => DateImmutableType::class,
+                    DateTimeImmutableType::NAME => DateTimeImmutableType::class
                 ]
             ]
         ]
@@ -48,6 +53,9 @@ return [
         ],
         'template_path_stack' => [
             __DIR__ . '/../view',
+        ],
+        'strategies' => [
+            'ViewJsonStrategy',
         ],
     ],
 ];

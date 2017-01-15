@@ -129,7 +129,7 @@ definitions:
         _embedded:
           type: object
           properties:
-            employees:
+            persons:
               type: array
               items:
                 $ref: '#/definitions/Person'

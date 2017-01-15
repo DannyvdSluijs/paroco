@@ -1,0 +1,10 @@
+version: 0.0
+os: linux 
+files:
+  - source: /
+    destination: /var/www/html/api-paroco
+hooks:
+  AfterInstall:
+    - location: .aws/after-install.sh
+      timeout: 30
+      runas: root

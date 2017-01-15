@@ -9,6 +9,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * @ORM\Entity
  * @ORM\Table(name="persons")
+ * @ORM\HasLifecycleCallbacks
  */
 class Person
 {
@@ -27,8 +28,6 @@ class Person
      * @var \Ramsey\Uuid\Uuid
      *
      * @ORM\Column(type="uuid")
-     * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
     private $uuid;
 
@@ -49,7 +48,7 @@ class Person
     /**
      * @var \DateTimeImmutable
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date_immutable")
      */
     private $dateOfBirth;
 
@@ -142,5 +141,15 @@ class Person
         $this->dateOfBirth = $dateOfBirth;
         return $this;
     }
+
+    /**
+     * The pre persist life cycle event handler
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        $this->uuid = Uuid::uuid4();
+    }
+
 }
 
