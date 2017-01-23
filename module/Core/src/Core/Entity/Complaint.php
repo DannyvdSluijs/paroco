@@ -64,13 +64,13 @@ class Complaint
      * @var boolean
      * @ORM\Column(type="boolean")
      */
-    private $processedIndicator;
+    private $processed;
 
     /**
      * @var boolean
      * @ORM\Column(type="boolean")
      */
-    private $redeliverRequiredIndicator;
+    private $redelivery;
 
     /**
      * @var ComplaintType

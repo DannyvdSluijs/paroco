@@ -8,6 +8,7 @@ return [
         'ZF\Rest',
         'ZF\ApiProblem',
         'ZF\ContentNegotiation',
+        'ZF\ContentValidation',
         'ZF\Hal',
         'Core',
         'Rest',

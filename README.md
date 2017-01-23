@@ -8,4 +8,6 @@ ALTER DATABASE "paper-route-complaint" OWNER TO "paper-route-complaint";
 ```
 
 ## Generate API documentation
-swagger-codegen generate -i swagger/swagger.yml -l swagger -o public/doc
+```bash
+swagger-codegen generate -i doc/api.yml -l swagger -o public/doc
+```

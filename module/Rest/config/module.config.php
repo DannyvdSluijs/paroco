@@ -44,16 +44,15 @@ return [
             'Rest\V1\PersonController' => 'HalJson',
         ],
         'accept-whitelist' => [
-            'Rest\V1\PersonController' => [
-                0 => 'application/hal+json',
-                1 => 'application/json'
-            ]
+            'Rest\V1\PersonController' => ['application/hal+json', 'application/json']
         ],
         'content-type-whitelist' => [
-            'Rest\V1\PersonController' => [
-                0 => 'application/json',
-                1 => 'application/hal+json',
-            ]
+            'Rest\V1\PersonController' => ['application/json', 'application/hal+json']
+        ]
+    ],
+    'zf-content-validation' => [
+        'Rest\V1\PersonController' => [
+            'input_filter' => \Rest\V1\InputFilter\PersonInputFilter::class,
         ]
     ],
     'zf-hal' => [
@@ -79,6 +78,11 @@ return [
     'hydrators' => [
         'factories' => [
             Rest\V1\Hydrator\PersonHydrator::class => Rest\Factory\V1\Hydrator\PersonHydratorFactory::class,
+        ]
+    ],
+    'input_filters' => [
+        'invokables' => [
+            \Rest\V1\InputFilter\PersonInputFilter::class => \Rest\V1\InputFilter\PersonInputFilter::class
         ]
     ]
 ];

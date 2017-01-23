@@ -14,6 +14,17 @@ consumes:
 produces:
   - application/json
 paths:
+  /complaint:
+    get:
+      summary: Get complaints
+      operationId: Get complaint
+      tags:
+        - Complaint
+      responses:
+        200:
+          description: A paginated collection of complaint objects
+          schema:
+            $ref: '#/definitions/ComplaintHalCollection'
   /person:
     get:
       summary: Get all persons
@@ -118,6 +129,21 @@ definitions:
             $ref: '#/definitions/HalLink'
           last:
             $ref: '#/definitions/HalLink'
+  ComplaintHalCollection:
+    description: A HAL collection of complaints
+    allOf:
+    - $ref: '#/definitions/HalCollection'
+    - type: object
+      required:
+      - _embedded
+      properties:
+        _embedded:
+          type: object
+          properties:
+            complaints:
+              type: array
+              items:
+                $ref: '#/definitions/Complaint'
   PersonHalCollection:
     description: A HAL collection of persons
     allOf:
@@ -148,6 +174,33 @@ definitions:
                 type: array
                 items:
                   $ref: '#/definitions/Address'
+  Complaint:
+    type: object
+    properties:
+      id:
+        type: integer
+      uuid:
+        type: string
+      date:
+        type: string
+      registration:
+        type: string
+      product:
+        type: string
+      severity:
+        type: string
+      processed:
+        type: boolean
+      redelivery:
+        type: boolean
+      type:
+        type: boolean
+      key:
+        type: boolean
+      remark:
+        type: boolean
+      address:
+        $ref: '#/definitions/Address'
   Person:
     type: object
     properties:
