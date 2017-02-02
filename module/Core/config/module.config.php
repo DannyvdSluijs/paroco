@@ -1,4 +1,13 @@
 <?php
+/**
+ * PaRoCo
+ *
+ * PHP Version 7
+ *
+ * @link      https://github.com/DannyvdSluijs/paroco
+ * @copyright Copyright (c) 2016 Danny van der Sluijs
+ * @license   MIT License
+ */
 
 use VasekPurchart\Doctrine\Type\DateTimeImmutable\DateImmutableType;
 use VasekPurchart\Doctrine\Type\DateTimeImmutable\DateTimeImmutableType;

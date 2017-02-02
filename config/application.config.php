@@ -5,6 +5,7 @@ return [
         'DoctrineModule',
         'DoctrineORMModule',
         'ZF\Apigility',
+        'ZF\MvcAuth',
         'ZF\Rest',
         'ZF\ApiProblem',
         'ZF\ContentNegotiation',

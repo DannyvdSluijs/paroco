@@ -1,12 +1,12 @@
 <?php
 /**
- * Backend
+ * PaRoCo
  *
  * PHP Version 7
  *
- * @link      http://scm.monitorlinq.com/backend
- * @copyright Copyright (c) 2016 Monitorlinq Limited
- * @license   http://www.monitorlinq.com/license Proprietary License
+ * @link      https://github.com/DannyvdSluijs/paroco
+ * @copyright Copyright (c) 2016 Danny van der Sluijs
+ * @license   MIT License
  */
 
 namespace Core\Controller;

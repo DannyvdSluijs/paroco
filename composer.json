@@ -2,7 +2,7 @@
   "name": "danny-van-der-sluijs/paper-route-complaint",
   "description": "Paper route complaint big data dashboard",
   "minimum-stability": "stable",
-  "license": "proprietary",
+  "license": "MIT",
   "authors": [
     {
       "name": "Danny van der Sluijs",

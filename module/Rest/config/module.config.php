@@ -1,4 +1,13 @@
 <?php
+/**
+ * PaRoCo
+ *
+ * PHP Version 7
+ *
+ * @link      https://github.com/DannyvdSluijs/paroco
+ * @copyright Copyright (c) 2016 Danny van der Sluijs
+ * @license   MIT License
+ */
 
 return [
     'router' => [
@@ -70,6 +79,28 @@ return [
             ],
         ],
     ],
+    'zf-mvc-auth' => [
+        'authentication' => [
+            'http' => [
+                'accept_schemes' => ['basic', 'digest'],
+                'realm' => 'My Web Site',
+                'digest_domains' => '/',
+                'nonce_timeout' => 3600,
+                'htpasswd' => './data/htpasswd', // htpasswd tool generated
+                'htdigest' => './data/htdigest', // @see http://www.askapache.com/online-tools/htpasswd-generator/
+            ],
+        ],
+        'authorization' => [
+            'deny_by_default' => true,
+            'ZF\\OAuth2\\Controller\\Auth' => [
+                'actions' => [
+                    'token' => [
+                        'POST'   => true,
+                    ],
+                ],
+            ],
+        ],
+    ],
     'service_manager' => [
         'factories' => [
             Rest\V1\Resource\PersonResource::class => Rest\Factory\V1\Resource\PersonResourceFactory::class,
@@ -86,4 +117,3 @@ return [
         ]
     ]
 ];
-

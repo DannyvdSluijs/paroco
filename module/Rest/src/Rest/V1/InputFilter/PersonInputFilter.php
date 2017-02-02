@@ -1,14 +1,13 @@
 <?php
 /**
- * Simulation
+ * PaRoCo
  *
- * PHP Version 5.5
+ * PHP Version 7
  *
- * @link      https://github.com/DannyvdSluijs/Simulation/
- * @copyright Copyright (c) 2016-2017
- * @license
+ * @link      https://github.com/DannyvdSluijs/paroco
+ * @copyright Copyright (c) 2016 Danny van der Sluijs
+ * @license   MIT License
  */
-
 namespace Rest\V1\InputFilter;
 
 use Zend\InputFilter\InputFilter;

@@ -1,0 +1,24 @@
+phpserver:
+  build: ./docker/php
+  volumes:
+    - ./:/var/www/
+  links:
+    - pgsqlserver
+
+pgsqlserver:
+  image: postgres
+  environment:
+    POSTGRES_PASSWORD: docker
+    POSTGRES_USER: docker
+    POSTGRES_DB: paroco
+    PGDATA: /var/lib/postgresql/data/pgdata
+  volumes:
+    - /var/lib/postgresql/data/pgdata
+
+nginx:
+  build: ./docker/nginx
+  ports:
+    - "8080:80"
+    - "443:443"
+  links:
+    - phpserver

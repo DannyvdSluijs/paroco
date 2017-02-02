@@ -16,11 +16,11 @@ return [
             'orm_default' => [
                 'driverClass' => 'Doctrine\DBAL\Driver\PDOPgSql\Driver',
                 'params' => [
-                    'host'     => 'localhost',
+                    'host'     => 'pgsqlserver',
                     'port'     => '5432',
-                    'user'     => 'paper-route-complaint',
-                    'password' => 'paper-route-complaint',
-                    'dbname'   => 'paper-route-complaint',
+                    'user'     => 'docker',
+                    'password' => 'docker',
+                    'dbname'   => 'paroco',
                 ]
             ]
         ]
