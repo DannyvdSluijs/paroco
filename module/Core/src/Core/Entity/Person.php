@@ -11,6 +11,7 @@
 
 namespace Core\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeImmutable;
 use Ramsey\Uuid\Uuid;
@@ -60,6 +61,22 @@ class Person
      * @ORM\Column(type="date_immutable")
      */
     private $dateOfBirth;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="\Core\Entity\Address")
+     * @ORM\JoinTable(name="person_addresses", inverseJoinColumns={@ORM\JoinColumn(unique=true)})
+     */
+    private $addresses;
+
+    /**
+     * Person constructor.
+     */
+    public function __construct()
+    {
+        $this->addresses = new ArrayCollection();
+    }
+
 
     /**
      * @return int
@@ -149,6 +166,15 @@ class Person
     {
         $this->dateOfBirth = $dateOfBirth;
         return $this;
+    }
+
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getAddresses()
+    {
+        return $this->addresses;
     }
 
     /**

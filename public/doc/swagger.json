@@ -17,8 +17,8 @@
     "/complaint" : {
       "get" : {
         "tags" : [ "Complaint" ],
-        "summary" : "Get complaints",
-        "operationId" : "Get complaint",
+        "summary" : "Get all complaints",
+        "operationId" : "Get all complaint",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -30,11 +30,34 @@
         }
       }
     },
+    "/complaint/{complaint}" : {
+      "get" : {
+        "tags" : [ "Complaint" ],
+        "summary" : "Get a single complaint",
+        "operationId" : "Get single complaint",
+        "parameters" : [ {
+          "name" : "complaint",
+          "in" : "path",
+          "description" : "Uuid of an complaint",
+          "required" : true,
+          "type" : "string",
+          "pattern" : "(a-zA-Z0-9){8}-(a-zA-Z0-9){4}-(a-zA-Z0-9){4}-(a-zA-Z0-9){4}-(a-zA-Z0-9){12}"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A single complaint",
+            "schema" : {
+              "$ref" : "#/definitions/Complaint"
+            }
+          }
+        }
+      }
+    },
     "/person" : {
       "get" : {
         "tags" : [ "Person" ],
         "summary" : "Get all persons",
-        "operationId" : "Get persons",
+        "operationId" : "Get all persons",
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -79,7 +102,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "An paginated collection of person objects",
+            "description" : "An single person",
             "schema" : {
               "$ref" : "#/definitions/Person"
             }
@@ -209,9 +232,6 @@
     "Complaint" : {
       "type" : "object",
       "properties" : {
-        "id" : {
-          "type" : "integer"
-        },
         "uuid" : {
           "type" : "string"
         },
@@ -219,13 +239,18 @@
           "type" : "string"
         },
         "registration" : {
-          "type" : "string"
+          "type" : "string",
+          "description" : "The registration date and time of the complaint"
         },
         "product" : {
-          "type" : "string"
+          "type" : "string",
+          "default" : "Telegraaf",
+          "enum" : [ "Telegraaf" ]
         },
         "severity" : {
-          "type" : "string"
+          "type" : "string",
+          "default" : "Incidental",
+          "enum" : [ "Incidental", "Severe" ]
         },
         "processed" : {
           "type" : "boolean"
@@ -234,13 +259,15 @@
           "type" : "boolean"
         },
         "type" : {
-          "type" : "boolean"
+          "type" : "string",
+          "default" : "Undelivered",
+          "enum" : [ "Undelivered", "Incorrect" ]
         },
         "key" : {
-          "type" : "boolean"
+          "type" : "string"
         },
         "remark" : {
-          "type" : "boolean"
+          "type" : "string"
         },
         "address" : {
           "$ref" : "#/definitions/Address"
@@ -250,8 +277,8 @@
     "Person" : {
       "type" : "object",
       "properties" : {
-        "id" : {
-          "type" : "integer"
+        "uuid" : {
+          "type" : "string"
         },
         "firstName" : {
           "type" : "string"

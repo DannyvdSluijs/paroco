@@ -23,5 +23,8 @@
       "Core\\": "module/Core/src/Core",
       "Rest\\": "module/Rest/src/Rest"
     }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.0"
   }
 }

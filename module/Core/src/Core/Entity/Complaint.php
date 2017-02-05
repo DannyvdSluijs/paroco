@@ -79,7 +79,7 @@ class Complaint
      * @var boolean
      * @ORM\Column(type="boolean")
      */
-    private $redelivery;
+    private $redeliverRequired;
 
     /**
      * @var ComplaintType
@@ -216,36 +216,36 @@ class Complaint
     /**
      * @return boolean
      */
-    public function isProcessedIndicator(): bool
+    public function isProcessed(): bool
     {
-        return $this->processedIndicator;
+        return $this->processed;
     }
 
     /**
-     * @param boolean $processedIndicator
+     * @param boolean $processed
      * @return Complaint
      */
-    public function setProcessedIndicator(bool $processedIndicator): Complaint
+    public function setProcessed(bool $processed): Complaint
     {
-        $this->processedIndicator = $processedIndicator;
+        $this->processed = $processed;
         return $this;
     }
 
     /**
      * @return boolean
      */
-    public function isRedeliverRequiredIndicator(): bool
+    public function isRedeliverRequired(): bool
     {
-        return $this->redeliverRequiredIndicator;
+        return $this->redeliverRequired;
     }
 
     /**
-     * @param boolean $redeliverRequiredIndicator
+     * @param boolean $redeliverRequired
      * @return Complaint
      */
-    public function setRedeliverRequiredIndicator(bool $redeliverRequiredIndicator): Complaint
+    public function setRedeliverRequiredIndicator(bool $redeliverRequired): Complaint
     {
-        $this->redeliverRequiredIndicator = $redeliverRequiredIndicator;
+        $this->redeliverRequired = $redeliverRequired;
         return $this;
     }
 

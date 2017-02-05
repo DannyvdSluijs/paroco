@@ -33,7 +33,8 @@ class PersonHydrator implements HydratorInterface
             'uuid' => $object->getUuid(),
             'givenName' => $object->getGivenName(),
             'familyName' => $object->getFamilyName(),
-            'dateOfBirth' => $object->getDateOfBirth()->format('Y-m-d')
+            'dateOfBirth' => $object->getDateOfBirth()->format('Y-m-d'),
+            'addresses' => $object->getAddresses()
         ];
     }
 

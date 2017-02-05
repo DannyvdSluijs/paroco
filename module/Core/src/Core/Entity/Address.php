@@ -18,6 +18,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * @ORM\Entity
  * @ORM\Table(name="addresses")
+ * @ORM\HasLifecycleCallbacks
  */
 class Address
 {
@@ -36,8 +37,6 @@ class Address
      * @var \Ramsey\Uuid\Uuid
      *
      * @ORM\Column(type="uuid")
-     * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="Ramsey\Uuid\Doctrine\UuidGenerator")
      */
     private $uuid;
 
@@ -79,7 +78,7 @@ class Address
 
     /**
      * @param int $id
-     * @return Person
+     * @return Address
      */
     public function setId(int $id) : Address
     {
@@ -97,7 +96,7 @@ class Address
 
     /**
      * @param \Ramsey\Uuid\Uuid $uuid
-     * @return Person
+     * @return Address
      */
     public function setUuid(Uuid $uuid) : Address
     {
@@ -121,6 +120,69 @@ class Address
     {
         $this->addressLine = $addressLine;
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPostalCode(): string
+    {
+        return $this->postalCode;
+    }
+
+    /**
+     * @param string $postalCode
+     * @return Address
+     */
+    public function setPostalCode(string $postalCode): Address
+    {
+        $this->postalCode = $postalCode;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCity(): string
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param string $city
+     * @return Address
+     */
+    public function setCity(string $city): Address
+    {
+        $this->city = $city;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountry(): string
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param string $country
+     * @return Address
+     */
+    public function setCountry(string $country): Address
+    {
+        $this->country = $country;
+        return $this;
+    }
+
+    /**
+     * The pre persist life cycle event handler
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        $this->uuid = Uuid::uuid4();
     }
 }
 
